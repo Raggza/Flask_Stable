@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Text 2 Image</title>
+
+    <script>
+        function goToModel() {
+            var selectedModel = document.getElementById("dropdown").value;
+            window.location.href = "/" + selectedModel.replaceAll(" ", "_");
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+
+        button {
+            border: none;
+            background-color:orange;
+            color: white;
+            padding: 10px 22px;
+            text-align: center;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+        }
+
+        body {
+            font-family: Arial;
+            text-align:center;
+            color:white;
+            background-color:black;
+        }
+    </style>
+
+    <h1>Text-2-Image Demo</h1>
+    <br>
+    <label for="selected-model">Model:</label>
+    <select id="dropdown" onchange="goToModel()">
+        <option value="" disabled selected>{{selected_model}}</option>
+        {% for model in model_list %}
+            <option value="{{ model }}">{{ model }}</option>
+        {% endfor %}
+    </select>
+    <p id="selected-model"></p>
+
+    <p>Model đang chọn: {{selected_model}}</p>
+
+    <form action="" method="post">
+
+        <div class="myDiv">
+            <p>Nhập text vào đây để gen ra ảnh nhé: </p>
+            <textarea name="prompt" rows="3" cols="50" style="font-size: 16pt"></textarea>
+        </div>
+        <br>
+
+        <div class="myDiv">
+            <button>Gen ảnh nào</button>
+        </div>
+        <br>
+        {% if image_url is defined %}
+        <div>
+        <img src="{{url_for('static', filename = 'output.jpg')}}" />
+        </div>
+        {% endif%}
+    </form>
+    <br>
+
+</body>
+</html>
